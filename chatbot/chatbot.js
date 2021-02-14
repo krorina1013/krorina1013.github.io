@@ -42,19 +42,6 @@ angular
           "Stop bickering or I'm going to come back there and change your opinions manually",
           "Can we have Bender Burgers again"
         ]
-      },
-      {
-        id: 3,
-        username: "Zoidberg",
-        avatar:
-          "http://images2.fanpop.com/images/photos/3300000/Zoidberg-futurama-3305418-1024-768.jpg",
-        messages: [
-          "All I want is to be a monkey of moderate intelligence who wears a suit",
-          "Oh, I don't have time for this",
-          "No! The kind with looting and maybe starting a few fires!",
-          "Now, now. Perfectly symmetrical violence never solved anything",
-          "Dissect its brain"
-        ]
       }
     ];
 
