@@ -29,19 +29,6 @@ angular
           "Who are you, my warranty?!",
           "I will destroy you"
         ]
-      },
-      {
-        id: 2,
-        username: "Fry",
-        avatar:
-          "http://www.wallpaperno.com/thumbnails/detail/20121027/futurama%20fry%201920x1080%20wallpaper_www.wallpaperno.com_68.jpg",
-        messages: [
-          "Ooh, name it after me! But I've never been to the moon!",
-          "You don't know how to do any of those",
-          "The key to victory is discipline, and that means a well made bed",
-          "Stop bickering or I'm going to come back there and change your opinions manually",
-          "Can we have Bender Burgers again"
-        ]
       }
     ];
 
