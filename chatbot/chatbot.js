@@ -1,5 +1,5 @@
 angular
-  .module("swankyChat", [])
+  .module("chatbot", [])
 
   // Set Up Chat Controller
   .controller("chatCtrl", function ($scope, $timeout, $rootScope) {
