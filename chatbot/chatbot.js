@@ -38,7 +38,7 @@ angular
       var vlu = $scope.value;
       if ($scope.text) {
         $scope.chats[vlu].messages.push(this.text);
-        $scope.text = "";
+        $scope.text = "123";
         console.log(vlu);
       }
     };
