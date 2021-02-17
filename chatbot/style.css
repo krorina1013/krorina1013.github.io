@@ -70,9 +70,9 @@
   .inbox main .message {
     background: #43d3c5;
     width: 70%;
-    margin: 1em 6em;
+    margin: 1em 1em;
     padding: 1em;
-    border-radius: 4px;
+    border-radius: 6px;
     opacity: 1;
     transition: opacity ease-in-out 0.45s;
   }
@@ -81,6 +81,7 @@
     color: #fff;
     font-weight: 300;
   }
+  /*
   .inbox main .message img {
     width: 30px;
     height: 30px;
@@ -88,6 +89,7 @@
     transform: translateX(-70px) translateY(-20px);
     float: left;
   }
+  */
   /*.inbox main .message:nth-of-type(even) {
     background: #2fc8ba;
     margin: 1em 1em;
