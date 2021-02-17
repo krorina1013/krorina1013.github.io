@@ -88,10 +88,10 @@
     transform: translateX(-70px) translateY(-20px);
     float: left;
   }
-  .inbox main .message:nth-of-type(even) {
+  /*.inbox main .message:nth-of-type(even) {
     background: #2fc8ba;
     margin: 1em 1em;
-  }
+  }*/
   .inbox main footer {
     position: fixed;
     bottom: 0;
