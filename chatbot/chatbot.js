@@ -98,12 +98,12 @@ $(function () {
     .find("li")
     .click(function () {
       if (index == 1) {
-        index = 1;
+        index = 0;
         $(".message-wrap").find(".message").css({
           opacity: "1"
         });
       } else {
-        index = 1;
+        index = 0;
         $(".message-wrap").find(".message").css({
           opacity: "0"
         });
