@@ -68,11 +68,12 @@
     overflow-y: scroll;
   }
   .inbox main .message {
+    float: left;
     background: #43d3c5;
     width: 70%;
     margin: 1em 1em;
     padding: 1em;
-    border-radius: 6px;
+    border-radius: 4px;
     opacity: 1;
     transition: opacity ease-in-out 0.45s;
   }
