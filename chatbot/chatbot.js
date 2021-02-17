@@ -6,28 +6,10 @@ angular
     $scope.chats = [
       {
         id: 0,
-        username: "Leela",
+        username: "ChatBot",
         avatar: "https://imgflip.com/s/meme/Futurama-Leela.jpg",
         messages: [
-          "I can explain. It's very valuable. You won't have time for sleeping, soldier, not with all the bed making you'll be doing",
-          "Who am I making this out to? We'll go deliver this crate like professionals, and then we'll go home",
-          "No! The cat shelter's on to me. I never loved you",
-          "Oh Leela! You're the only person I could turn to",
-          "Um, is this the boring, peaceful kind of taking to the streets",
-          "That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!"
-        ]
-      },
-      {
-        id: 1,
-        username: "Bender",
-        avatar:
-          "http://orig02.deviantart.net/9689/f/2012/027/9/c/mr_bender______classy__by_sgtconker1r-d4nqpzu.png",
-        messages: [
-          "Stop! Don't shoot fire stick in space canoe! Cause explosive decompression!",
-          "Fry! Stay back! He's too powerful! You guys aren't Santa!",
-          "Hi, I'm a naughty nurse, and I really need someone to talk to. $9.95 a minute",
-          "Who are you, my warranty?!",
-          "I will destroy you"
+          "안녕하세요?",
         ]
       }
     ];
