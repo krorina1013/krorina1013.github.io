@@ -9,12 +9,12 @@ angular
         username: "Leela",
         avatar: "https://imgflip.com/s/meme/Futurama-Leela.jpg",
         messages: [
-          "I can explain. It's very valuable. You won't have time for sleeping, soldier, not with all the bed making you'll be doing",
-          "Who am I making this out to? We'll go deliver this crate like professionals, and then we'll go home",
-          "No! The cat shelter's on to me. I never loved you",
-          "Oh Leela! You're the only person I could turn to",
-          "Um, is this the boring, peaceful kind of taking to the streets",
-          "That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!"
+          ["1", "I can explain. It's very valuable. You won't have time for sleeping, soldier, not with all the bed making you'll be doing"],
+          ["0", "Who am I making this out to? We'll go deliver this crate like professionals, and then we'll go home"],
+          ["1", "No! The cat shelter's on to me. I never loved you"],
+          ["0", "Oh Leela! You're the only person I could turn to"],
+          ["1", "Um, is this the boring, peaceful kind of taking to the streets"],
+          ["0", "That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!"]
         ]
       },
       {
@@ -37,8 +37,8 @@ angular
     $scope.add = function () {
       var vlu = $scope.value;
       if ($scope.text) {
-        $scope.chats[vlu].messages.push(this.text);
-        $scope.text = "123";
+        $scope.chats[vlu].messages.push(["0", this.text]);
+        $scope.text = "";
         console.log(vlu);
       }
     };
