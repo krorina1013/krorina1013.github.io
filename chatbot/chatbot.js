@@ -9,7 +9,7 @@ angular
         username: "ChatBot",
         avatar: "https://imgflip.com/s/meme/Futurama-Leela.jpg",
         messages: [
-          "안녕하세요?",
+          "안녕하세요?"
         ]
       }
     ];
