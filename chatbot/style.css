@@ -68,6 +68,7 @@
     overflow-y: scroll;
   }
   .inbox main .message {
+    float: right;
     background: #43d3c5;
     width: 70%;
     margin: 0.5em 2em;
