@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Graph</title>
+</head>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<body></body>
+<SCRIPT>
+ 
+    var graph = {
+        "nodes": [
+          { "name": "Myriel", "group": 1 },
+          { "name": "Napoleon", "group": 1 },
+          // 중간 생략
+          { "name": "Mme.Hucheloup", "group": 8 }
+        ],
+        "links": [
+          { "source": 1, "target": 0, "value": 1 },
+          { "source": 2, "target": 0, "value": 8 },
+        // 중간 생략
+          { "source": 76, "target": 58, "value": 1 }
+        ]
+    };
+    var width = 640,
+        height = 400;
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+ 
+    var xScale = d3.scaleLinear()
+            .domain([0, width])
+             .range([0, width]);
+ 
+    var yScale = d3.scaleLinear()
+        .domain([0, height])
+       .range([0, height]);
+    var zoomer = d3.behavior.zoom().x(xScale).y(yScale).scaleExtent([0.1, 8]).on("zoom", zoom);
+    function zoom() {
+       
+        tick(); 
+    };
+ 
+    var drag = d3.behavior.drag()
+            .origin(function (d) { return d; })
+             .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+ 
+    function dragstarted(d) {
+        d3.event.sourceEvent.stopPropagation();
+        
+        d.fixed |= 2;         
+    }
+    function dragged(d) {
+       
+        var mouse = d3.mouse(svg.node());
+        d.x = xScale.invert(mouse[0]);
+        d.y = yScale.invert(mouse[1]);
+        d.px = d.x;         
+        d.py = d.y;
+        force.resume();
+    }
+ 
+    function dragended(d) {
+        
+        d.fixed &= ~6;           }
+ 
+    var force = d3.layout.force()
+        .charge(-120)
+        .linkDistance(30)
+        .size([width, height]);
+ 
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+ 
+    svg.call(zoomer);
+    
+        force
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .start();
+ 
+        var link = svg.selectAll(".link")
+            .data(graph.links)
+          .enter().append("line")
+            .attr("class", "link")
+            .style("stroke-width", function (d) { return Math.sqrt(d.value); });
+ 
+        var node = svg.selectAll(".node")
+            .data(graph.nodes)
+          .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 5)
+            .style("fill", function (d) { return color(d.group); })
+            .call(drag);
+ 
+        node.append("title")
+            .text(function (d) { return d.name; });
+ 
+        force.on("tick",tick);
+ 
+    function tick(){            
+            link.attr("x1", function (d) { return xScale(d.source.x); })
+                .attr("y1", function (d) { return yScale(d.source.y);  })
+                .attr("x2", function (d) { return xScale(d.target.x); })
+                .attr("y2", function (d) { return yScale(d.target.y); });
+ 
+            node.attr("transform", function (d) {
+                return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")";
+            });
+  
+ 
+        };
+</SCRIPT>
+</body>

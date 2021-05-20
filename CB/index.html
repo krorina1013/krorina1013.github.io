@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
+    <!-- am chart -->
+    <script src="assets/pages/widget/amchart/amcharts.min.js"></script>
+    <script src="assets/pages/widget/amchart/serial.min.js"></script>
+    <!-- Todo js -->
+    <script type="text/javascript " src="assets/pages/todo/todo.js "></script>
+    <!-- Custom js -->
+    <!--<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>-->
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script type="text/javascript" src="assets/js/SmoothScroll.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/demo-12.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
 <head>
     <title>KPL News KGs</title>
       <meta charset="utf-8">
@@ -23,13 +45,11 @@
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
       <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
   </head>
-
   <script>
-      $(document).ready( function(){
-        $("#chart_miserables").load('index.html');
-    });
+      $(document).ready( function() {
+        $("#chart_miserables").load("custom-chart.html");
+        $("table-responsive").load("index.html");});
   </script>
-
   <body>
     <!-- Pre-loader start -->
     <div class="theme-loader">
@@ -227,92 +247,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-block p-b-10">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Project & Task</th>
-                                                                        <th>Time Spents</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="task-contain">
-                                                                                <h6 class="bg-c-blue d-inline-block text-center">U</h6>
-                                                                                <p class="d-inline-block m-l-20">UI Design</p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p class="d-inline-block m-r-20">4 : 36</p>
-                                                                            <div class="progress d-inline-block">
-                                                                                <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="task-contain">
-                                                                                <h6 class="bg-c-pink d-inline-block text-center">R</h6>
-                                                                                <p class="d-inline-block m-l-20">Redesign Android App</p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p class="d-inline-block m-r-20">4 : 36</p>
-                                                                            <div class="progress d-inline-block">
-                                                                                <div class="progress-bar bg-c-pink" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="task-contain">
-                                                                                <h6 class="bg-c-yellow d-inline-block text-center">L</h6>
-                                                                                <p class="d-inline-block m-l-20">Logo Design</p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p class="d-inline-block m-r-20">4 : 36</p>
-                                                                            <div class="progress d-inline-block">
-                                                                                <div class="progress-bar bg-c-yellow" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="task-contain">
-                                                                                <h6 class="bg-c-green d-inline-block text-center">A</h6>
-                                                                                <p class="d-inline-block m-l-20">Appestia landing Page</p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p class="d-inline-block m-r-20">4 : 36</p>
-                                                                            <div class="progress d-inline-block">
-                                                                                <div class="progress-bar bg-c-green" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="task-contain">
-                                                                                <h6 class="bg-c-blue d-inline-block text-center">L</h6>
-                                                                                <p class="d-inline-block m-l-20">Logo Design</p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p class="d-inline-block m-r-20">4 : 36</p>
-                                                                            <div class="progress d-inline-block">
-                                                                                <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                        <div id="table-responsive">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -323,30 +258,6 @@
                             </div>
             </div>
         </div>
-
-<!-- Warning Section Ends -->
-<!-- Required Jquery -->
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-<!-- am chart -->
-<script src="assets/pages/widget/amchart/amcharts.min.js"></script>
-<script src="assets/pages/widget/amchart/serial.min.js"></script>
-<!-- Todo js -->
-<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
-<!-- Custom js -->
-<!--<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>-->
-<script type="text/javascript" src="assets/js/script.js"></script>
-<script type="text/javascript" src="assets/js/SmoothScroll.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
-<script src="assets/js/demo-12.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
 </body>
 
 </html>
