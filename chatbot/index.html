@@ -31,7 +31,7 @@
           <!-- Set A Ng Repeat For Our Messages || Check To See If Our Value (Which Is Set Via Ng Click) Is Equal To The Id Of The Message List We Want To Show -->
           <div class='message-wrap' ng-repeat='message in chats' ng-show='value == message.id'>
             <!-- Repeat Each Item In The Array Seperately -->
-            <div class='message' ng-repeat='i in message.messages track by $index'>
+            <div class='message' x
               <p>{{i}}</p>
               <!--img ng-src='{{message.avatar}}'-->
             </div>
