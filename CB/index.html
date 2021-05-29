@@ -106,7 +106,7 @@
 <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
-        function showRateandCount(date) {
+        function showRate(date) {
             //오늘의 인기 리스트(5개까지)
             $.get("/rate/" + encodeURIComponent(date),
                     function (data) {
@@ -116,6 +116,10 @@
                             $("<tr><td class='rating'>" + rate.num + "</td><td>" + rate.node + "</td></tr>").appendTo(t)
                         });
                     }, "json");
+            
+            return false;
+        }
+        function showCount(date) {
             //오늘 업데이트 된 Triple 수
             $.get("/count/" + encodeURIComponent(date),
                     function (data) {
@@ -133,7 +137,7 @@
                         const t = $("table#results tbody").empty();
                         if (!data || data.length == 0) return;
                         data.forEach(function (triple) {
-                            $("<tr><td class='triple'>" + triple.source + "</td><td>" + triple.target + "</td><td>" + triple.value + "</td></tr>").appendTo(t)
+                            $("<tr><td class='triple'>" + triple.target + "</td><td>" + triple.value + "</td></tr>").appendTo(t)
                         });
                     }, "json");
             return false;
@@ -142,7 +146,8 @@
         var date = new Date();
         //날짜 형식 yyyy-mm-dd
         var today = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
-        showRateandCount(today);
+        showRate(today);
+        showCount(today);
 
         $("#search").submit(search);
         search();
