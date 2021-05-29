@@ -159,20 +159,54 @@
     const width = 800, height = 800;
 
     const force = d3.layout.force()
-            .charge(-200).linkDistance(30).size([width, height]);
+            .charge(-200)
+            .linkDistance(30)
+            .gravity(0.05)
+            .theta(0.)
+            .size([width, height]);
 
     const svg = d3.select("#graph").append("svg")
             .attr("width", "100%").attr("height", "100%")
             .attr("pointer-events", "all");
 
     d3.json("/graph", function(error, graph) {
-		if (error) return;
-
-        force.nodes(graph.nodes).links(graph.links).start();
+		if (error)
+            graph = {
+                nodes: [
+                    {name: "Adam"},
+                    {name: "Bob"},
+                    {name: "Carrie"},
+                    {name: "Donovan"},
+                    {name: "Edward"},
+                    {name: "Felicity"},
+                    {name: "George"},
+                    {name: "Hannah"},
+                    {name: "Iris"},
+                    {name: "Jerry"}
+                ],
+                edges: [
+                    {source: "Bob", target: "Adam", value : "friends"},
+                    {source: "Carrie", target: "Donovan", value : "Dad"},
+                    {source: "Edward", target: "Felicity", value : "Mom"},
+                    {source: "George", target: "Hannah", value : "Cannet"},
+                    {source: "Edward", target: "Hannah", value : "Sun"},
+                    {source: "Hannah", target: "Adam", value : "Cat"},
+                    {source: "Iris", target : "Jerry", value : "Dog"},
+                    {source: "Donovan", target : "George", value : "NENT"}
+                ]
+            }; 
+        force.nodes(graph.nodes)
+            .links(graph.links)
+            .start();
 
         const link = svg.selectAll(".link")
-                .data(graph.links).enter()
-                .append("line").attr("class", "link");
+                .data(graph.edges)
+                .enter()
+                .append("line")
+                .attr("id",function(d,i) {return 'edge'+i})
+                .attr('marker-end','url(#arrowhead)')
+                .style("stroke","#ccc")
+                .style("pointer-events", "none");
 
         const node = svg.selectAll(".node")
                 .data(graph.nodes).enter()
@@ -180,6 +214,61 @@
                 .attr("class", function (d) { return "node "+d.label })
                 .attr("r", 10)
                 .call(force.drag);
+
+        var nodelabels = svg.selectAll(".nodelabel")
+            .data(dataset.nodes)
+            .enter()
+            .append("text")
+            .attr({"x":function(d){return d.x;},
+                   "y":function(d){return d.y;},
+                   "class":"nodelabel",
+                   "stroke":"black"})
+            .text(function(d){return d.name;});
+
+        var edgepaths = svg.selectAll(".edgepath")
+            .data(graph.edges)
+            .enter()
+            .append('path')
+            .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+               'class':'edgepath',
+               'fill-opacity':0,
+               'stroke-opacity':0,
+               'fill':'blue',
+               'stroke':'red',
+               'id':function(d,i) {return 'edgepath'+i}})
+            .style("pointer-events", "none");
+
+        var edgelabels = svg.selectAll(".edgelabel")
+            .data(graph.links)
+            .enter()
+            .append('text')
+            .style("pointer-events", "none")
+            .attr({'class':'edgelabel',
+               'id':function(d,i){return 'edgelabel'+i},
+               'dx':80,
+               'dy':0,
+               'font-size':10,
+               'fill':'#aaa'});
+
+        edgelabels.append('textPath')
+            .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+            .style("pointer-events", "none")
+            .text(function(d,i){return d.value});
+
+
+        svg.append('defs').append('marker')
+            .attr({'id':'arrowhead',
+               'viewBox':'-0 -5 10 10',
+               'refX':25,
+               'refY':0,
+               'orient':'auto',
+               'markerWidth':10,
+               'markerHeight':10,
+               'xoverflow':'visible'})
+        .append('svg:path')
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', '#ccc')
+            .attr('stroke','#ccc');  
 
         // html title attribute
         node.append("title")
@@ -194,6 +283,25 @@
 
             node.attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; });
+            
+            nodelabels.attr("x", function(d) { return d.x; }) 
+                  .attr("y", function(d) { return d.y; });
+
+            edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+                                           //console.log(d)
+                                           return path});       
+
+            edgelabels.attr('transform',function(d,i){
+            if (d.target.x<d.source.x){
+                bbox = this.getBBox();
+                rx = bbox.x+bbox.width/2;
+                ry = bbox.y+bbox.height/2;
+                return 'rotate(180 '+rx+' '+ry+')';
+                }
+            else {
+                return 'rotate(0)';
+                }
+            });
         });
     });
 </script>
