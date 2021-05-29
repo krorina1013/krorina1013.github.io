@@ -708,14 +708,15 @@ pre code {
     width: 1170px;
   }
 }
+#first{
+  padding-right: 10%;
+  padding-left: 10%;
+}
 .row {
 /*
   margin-left: -15px;
   margin-right: -15px;
   */
-}
-.row#naw {
-    float : right;
 }
 .row:before,
 .row:after {
