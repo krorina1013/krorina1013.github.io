@@ -17,7 +17,7 @@
 
     var colors = d3.scale.category20();
 
-    d3.json("miserables.json", function(error, dataset) {
+    d3.json("miserables.json", function(error, graph) {
         if (error) throw error;
 
         dataset.links.forEach(function(d, i){
@@ -35,11 +35,54 @@
             });
         });
 
-        var svg = d3.select("body").append("svg").attr({"width":w,"height":h})
-                    .call(d3.behavior.zoom().on("zoom", function () {
-                    svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
-                }));
+        var xScale = d3.scale.linear()
+            .domain([0, w])
+            .range([0, w]);
+        var yScale = d3.scale.linear()
+            .domain([0, h])
+            .range([0, h]);
 
+        var svg = d3.select("body").append("svg").attr({"width":w,"height":h})
+                    .call(d3.behavior.zoom().x(xScale).y(yScale).scaleExtent([0.1, 8])
+                      .on("zoom", tick));
+
+        //drag 함수를 새로 정의한다.
+        var drag = d3.behavior.drag()
+                    .origin(function (d) { return d; }) //
+                    .on("dragstart", dragstarted)
+                    .on("drag", dragged)
+                    .on("dragend", dragended);
+        
+        // 드래그가 시작될 경우.
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();  //다른 이벤트 전달 중지
+            d.fixed |= 2; 
+            //d3.js 오리지널 소스의 force.drag에서 참고함.
+            //드래그하는 점의 진동이 발생하지 않도록 임시로 fix 한다.
+        }
+        
+        //드래그 되는 동안.
+            function dragged(d) {
+        
+                //마우스의 위치를 잡아낸 뒤, 
+                //invert 계산을 거쳐 zoom이 없을 경우의 x,y 스케일을 알아냄
+                //zoom 이 포함된 좌표를 계산하는 것은 tick()의 역할임.
+                var mouse = d3.mouse(svg.node());
+                d.x = xScale.invert(mouse[0]);
+                d.y = yScale.invert(mouse[1]);
+        
+                // 앞에서 임시로 fix해준 점의 변위 (px, py)를 직접 입력해 줌
+                d.px = d.x;
+                d.py = d.y;
+                force.resume();  // force layout이 움직이도록 resume함.
+            }
+            
+        //drag가 끝난 후.
+        function dragended(d) {       
+            d.fixed &= ~6; 
+            //d3 오리지널 소스의 force.drag에서 참고함. 
+            // 앞에서 fix해준 점을 다시 풀어줌        
+        }
 
         var force = d3.layout.force()
             .nodes(dataset.nodes)
@@ -66,7 +109,7 @@
         .append("circle")
         .attr({"r":15})
         .style("fill",function(d,i){return colors(i%20);})
-        .call(force.drag)
+        .call(drag)
 
 
         var nodelabels = svg.selectAll(".nodelabel") 
@@ -129,20 +172,20 @@
         
         function tick(){
 
-            edges.attr({"x1": function(d){return d.source.x;},
-                        "y1": function(d){return d.source.y;},
-                        "x2": function(d){return d.target.x;},
-                        "y2": function(d){return d.target.y;}
+            edges.attr({"x1": function(d){return xScale(d.source.x);},
+                        "y1": function(d){return yScale(d.source.y);},
+                        "x2": function(d){return xScale(d.target.x);},
+                        "y2": function(d){return yScale(d.target.y);}
             });
 
-            nodes.attr({"cx":function(d){return d.x;},
-                        "cy":function(d){return d.y;}
+            nodes.attr("transform", function (d) {
+                            return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")";
             });
 
-            nodelabels.attr("x", function(d) { return d.x; }) 
-                    .attr("y", function(d) { return d.y; });
+            nodelabels.attr("x", function(d) { return xScale(d.x);}) 
+                    .attr("y", function(d) { return yScale(d.y);});
 
-            edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+            edgepaths.attr('d', function(d) { var path='M '+xScale(d.source.x)+' '+yScale(d.source.y)+' L '+ xScale(d.target.x) +' '+yScale(d.target.y);
                                             //console.log(d)
                                             return path});       
 
@@ -158,7 +201,8 @@
                     }
             });
         };
-    });      
+
+    });    
 
 </script>
 
