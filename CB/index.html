@@ -170,31 +170,8 @@
             .attr("pointer-events", "all");
 
     d3.json("/graph", function(error, dataset) {
-		if (error)
-            dataset = {
-                nodes: [
-                    {name: "Adam"},
-                    {name: "Bob"},
-                    {name: "Carrie"},
-                    {name: "Donovan"},
-                    {name: "Edward"},
-                    {name: "Felicity"},
-                    {name: "George"},
-                    {name: "Hannah"},
-                    {name: "Iris"},
-                    {name: "Jerry"}
-                ],
-                edges: [
-                    {source: "Bob", target: "Adam", value : "friends"},
-                    {source: "Carrie", target: "Donovan", value : "Dad"},
-                    {source: "Edward", target: "Felicity", value : "Mom"},
-                    {source: "George", target: "Hannah", value : "Cannet"},
-                    {source: "Edward", target: "Hannah", value : "Sun"},
-                    {source: "Hannah", target: "Adam", value : "Cat"},
-                    {source: "Iris", target : "Jerry", value : "Dog"},
-                    {source: "Donovan", target : "George", value : "NENT"}
-                ]
-            }; 
+		if (error) throw error;
+            
             dataset.links.forEach(function(d, i){
             dataset.nodes.forEach(function(a, i){
                 if(d.source == a.id){
