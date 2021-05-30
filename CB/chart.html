@@ -17,7 +17,7 @@
 
     var colors = d3.scale.category20();
 
-    d3.json("miserables.json", function(error, graph) {
+    d3.json("miserables.json", function(error, dataset) {
         if (error) throw error;
 
         dataset.links.forEach(function(d, i){
