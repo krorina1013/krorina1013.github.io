@@ -17,29 +17,33 @@
 
     var colors = d3.scale.category20();
 
-    d3.json("miserables.json", function(error, dataset) {
+    d3.json("miserables.json", function(error, graph) {
         if (error) throw error;
 
         dataset.links.forEach(function(d, i){
             dataset.nodes.forEach(function(a, i){
                 if(d.source == a.id){
                     d.source = i;
-                    break;
+                    return;
                 }
             });
             dataset.nodes.forEach(function(a, i){
                 if(d.target == a.id){
                     d.target = i;
-                    break;
+                    return;
                 }
             });
         });
 
-        var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
+        var svg = d3.select("body").append("svg").attr({"width":w,"height":h})
+                    .call(d3.behavior.zoom().on("zoom", function () {
+                    svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+                }));
+
 
         var force = d3.layout.force()
             .nodes(dataset.nodes)
-            .links(dataset.edges)
+            .links(dataset.links)
             .size([w,h])
             .linkDistance([linkDistance])
             .charge([-500])
@@ -48,7 +52,7 @@
             .start();
 
         var edges = svg.selectAll("line")
-        .data(dataset.edges)
+        .data(dataset.links)
         .enter()
         .append("line")
         .attr("id",function(d,i) {return 'edge'+i})
@@ -76,7 +80,7 @@
         .text(function(d){return d.id;});
 
         var edgepaths = svg.selectAll(".edgepath")
-            .data(dataset.edges)
+            .data(dataset.links)
             .enter()
             .append('path')
             .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
@@ -89,7 +93,7 @@
             .style("pointer-events", "none");
 
         var edgelabels = svg.selectAll(".edgelabel")
-            .data(dataset.edges)
+            .data(dataset.links)
             .enter()
             .append('text')
             .style("pointer-events", "none")
@@ -120,9 +124,10 @@
                 .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
                 .attr('fill', '#ccc')
                 .attr('stroke','#ccc');
-        
 
-        force.on("tick", function(){
+        force.on("tick", tick);
+        
+        function tick(){
 
             edges.attr({"x1": function(d){return d.source.x;},
                         "y1": function(d){return d.source.y;},
@@ -152,8 +157,8 @@
                     return 'rotate(0)';
                     }
             });
-        });
-    });
+        };
+    });      
 
 </script>
 
